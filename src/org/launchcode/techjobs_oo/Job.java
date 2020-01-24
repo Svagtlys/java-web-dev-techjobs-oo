@@ -93,4 +93,50 @@ public class Job {
     public void setCoreCompetency(CoreCompetency coreCompetency) {
         this.coreCompetency = coreCompetency;
     }
+
+
+    public String toString(){
+
+        JobField[] fields = new JobField[4]; //ID, Name, Employer, Location, Type, Comp
+
+        fields[0] = getEmployer();
+        fields[1] = getLocation();
+        fields[2] = getPositionType();
+        fields[3] = getCoreCompetency();
+
+        String[] finalStrings = new String[4];
+
+        int totalMissing = 0;
+
+        for(int i = 0; i < fields.length; i++)
+        {
+            if(fields[i] == null)
+            {
+                finalStrings[i] = "Data not available";
+                totalMissing += 1;
+            } else {
+                finalStrings[i] = fields[i].toString();
+                if(finalStrings[i].isEmpty())
+                {
+                    finalStrings[i] = "Data not available";
+                }
+            }
+        }
+
+        String result = "";
+
+        if(totalMissing == 4 && getName() == null){
+            result = "\nOOPS! This job does not seem to exist.\n";
+        } else {
+            result = "\nID:  " + getId() + "\n" +
+                "Name: " + getName() + "\n" +
+                "Employer: " + finalStrings[0] + "\n" +
+                "Location: " + finalStrings[1] + "\n" +
+                "Position Type: " + finalStrings[2] + "\n" +
+                "Core Competency: " + finalStrings[3] + "\n";
+        }
+
+        return result;
+    }
+
 }
